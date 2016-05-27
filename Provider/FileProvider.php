@@ -22,6 +22,7 @@ use Sonata\MediaBundle\Metadata\MetadataBuilderInterface;
 use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Thumbnail\ThumbnailInterface;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
@@ -96,7 +97,7 @@ class FileProvider extends BaseProvider
         $formMapper->add('cdnIsFlushable');
         $formMapper->add('description');
         $formMapper->add('copyright');
-        $formMapper->add('binaryContent', 'file', array('required' => false));
+        $formMapper->add('binaryContent', FileType::class, array('required' => false));
     }
 
     /**
@@ -104,7 +105,7 @@ class FileProvider extends BaseProvider
      */
     public function buildCreateForm(FormMapper $formMapper)
     {
-        $formMapper->add('binaryContent', 'file', array(
+        $formMapper->add('binaryContent', FileType::class, array(
             'constraints' => array(
                 new NotBlank(),
                 new NotNull(),
@@ -118,10 +119,10 @@ class FileProvider extends BaseProvider
     public function buildMediaType(FormBuilder $formBuilder)
     {
         if ($formBuilder->getOption('context') == 'api') {
-            $formBuilder->add('binaryContent', 'file');
+            $formBuilder->add('binaryContent', FileType::class);
             $formBuilder->add('contentType');
         } else {
-            $formBuilder->add('binaryContent', 'file', array(
+            $formBuilder->add('binaryContent', FileType::class, array(
                 'required' => false,
                 'label'    => 'widget_label_binary_content',
             ));
