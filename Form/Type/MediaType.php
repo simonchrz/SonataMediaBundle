@@ -13,6 +13,7 @@ namespace Sonata\MediaBundle\Form\Type;
 
 use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
 use Sonata\MediaBundle\Provider\Pool;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -64,7 +65,7 @@ class MediaType extends AbstractType
 
         $this->pool->getProvider($options['provider'])->buildMediaType($builder);
 
-        $builder->add('unlink', 'checkbox', array(
+        $builder->add('unlink', CheckboxType::class, array(
             'label'    => 'widget_label_unlink',
             'mapped'   => false,
             'data'     => false,
