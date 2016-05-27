@@ -109,14 +109,6 @@ class MediaType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getParent()
-    {
-        return 'form';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix()
     {
         return 'sonata_media_type';
